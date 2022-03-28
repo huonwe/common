@@ -71,16 +71,20 @@ bool Config::readFile()
 		ifstream ifs;
 		ifs.open(this->file_path, ios::in);
 		string st, key, value;
-		char line[50];
 		string::size_type idx;
 		// 遍历文件到最后 按行
 		while (!ifs.eof())
 		{
 			st = "";
-			ifs >> st;
+			getline(ifs, st);
+			//cout << st << endl;
 			if (st[0] == '#')
 			{
 				continue;
+			}
+			while ((idx = st.find(" ")) != string::npos)	// 清除空格
+			{
+				st.replace(idx, 1, "");
 			}
 			idx = st.find("=");
 			if (idx == string::npos)	// 无 =
